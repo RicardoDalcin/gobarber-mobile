@@ -15,6 +15,7 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
 import getValidationErrors from '../../utils/getValidationErrors';
+import api from '../../services/api';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -49,6 +50,15 @@ const SignUp: React.FC = () => {
         password: Yup.string().min(6, 'No mínimo 6 dígitos'),
       });
       await schema.validate(data, { abortEarly: false });
+
+      await api.post('/users', data);
+
+      Alert.alert(
+        'Cadastro realizado com sucesso!',
+        'Você já pode fazer login na aplicação.',
+      );
+
+      navigation.goBack();
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
@@ -125,7 +135,7 @@ const SignUp: React.FC = () => {
                 formRef.current?.submitForm();
               }}
             >
-              Entrar
+              Enviar
             </Button>
 
             <BackToSignIn
