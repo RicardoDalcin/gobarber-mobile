@@ -40,7 +40,8 @@
     "no-use-before-define": "off",
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
-    "no-unused-expressions": "off"
+    "no-unused-expressions": "off",
+    "no-shadow": "off"
   },
   "settings": {
     "import/resolver": {
