@@ -81,7 +81,7 @@ const Dashboard: React.FC = () => {
             <ProviderAvatar source={{ uri: provider.avatar_url }} />
 
             <ProviderInfo>
-              <ProviderName>{user.name}</ProviderName>
+              <ProviderName>{provider.name}</ProviderName>
 
               <ProviderMeta>
                 <Icon name="calendar" size={14} color="#ff9000" />
