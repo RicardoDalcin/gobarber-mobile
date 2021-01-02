@@ -36,6 +36,7 @@
         "tsx": "never"
       }
     ],
+    "no-empty": "off",
     "import/no-duplicates": "off",
     "prettier/prettier": "error",
     "no-use-before-define": "off",
