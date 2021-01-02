@@ -50,8 +50,18 @@ const CreateAppointment: React.FC = () => {
 
   const routeParams = route.params as RouteParams;
 
+  const minimumDate = useMemo(() => {
+    const today = new Date();
+
+    if (today.getHours() >= 17) {
+      return new Date(today.setDate(today.getDate() + 1));
+    }
+
+    return today;
+  }, []);
+
+  const [selectedDate, setSelectedDate] = useState(minimumDate);
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedHour, setSelectedHour] = useState(0);
   const [availability, setAvailability] = useState<AvailabilityItem[]>([]);
   const [providers, setProviders] = useState<Provider[]>([]);
@@ -78,6 +88,7 @@ const CreateAppointment: React.FC = () => {
       })
       .then(response => {
         setAvailability(response.data);
+        setSelectedHour(0);
       });
   }, [selectedDate, selectedProvider]);
 
@@ -124,7 +135,7 @@ const CreateAppointment: React.FC = () => {
         'Ocorreu um erro ao criar o agendamento, tente novamente',
       );
     }
-  }, []);
+  }, [navigate, selectedDate, selectedHour, selectedProvider]);
 
   const morningAvailability = useMemo(() => {
     return availability
@@ -191,9 +202,11 @@ const CreateAppointment: React.FC = () => {
           {showDatePicker && (
             <DateTimePicker
               mode="date"
+              is24Hour
               display="calendar"
-              onChange={handleDateChanged}
               value={selectedDate}
+              onChange={handleDateChanged}
+              minimumDate={minimumDate}
             />
           )}
         </Calendar>

@@ -36,6 +36,7 @@
         "tsx": "never"
       }
     ],
+    "import/no-duplicates": "off",
     "prettier/prettier": "error",
     "no-use-before-define": "off",
     "react/jsx-props-no-spreading": "off",
